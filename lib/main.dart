@@ -1,3 +1,4 @@
+import 'package:chat_app/screens/auth_screen.dart';
 import 'package:chat_app/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -15,10 +16,20 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.indigo,
+        backgroundColor: Colors.indigo,
+        accentColor: Colors.purple,
+        accentColorBrightness: Brightness.dark,
+        //this will let knw flutter tht this is bright color
+        buttonTheme: ButtonTheme.of(context).copyWith(
+          buttonColor: Colors.indigo,
+          textTheme: ButtonTextTheme.primary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
       ),
-      home: ChatScreen(),
+      home: AuthScreen(),
     );
   }
 }
-
