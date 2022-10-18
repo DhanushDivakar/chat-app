@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,6 +18,7 @@ class _AuthScreenState extends State<AuthScreen> {
     String password,
     String username,
     bool isLogin,
+    BuildContext ctx,
   ) async {
     AuthResult authResult;
 
@@ -26,16 +28,28 @@ class _AuthScreenState extends State<AuthScreen> {
             email: email, password: password);
       } else {
         authResult = await _auth.createUserWithEmailAndPassword(
-            email: email, password: password);
+          email: email,
+          password: password,
+        );
+       await  Firestore.instance
+            .collection('users')
+            .document(authResult.user.uid)
+            .setData({
+          'username': username,
+          'email': email,
+        }); //add mentod adds new user id but we dont want tht hence  we use doucment to store in the exisiting user
+        //setData s used to store extra data
       }
     } on PlatformException catch (err) {
       var message = "An error occurred, please check your credentials";
-      if(err.message != null){
+      if (err.message != null) {
         message = err.message;
       }
-      Scaffold.of(context).showSnackBar(SnackBar(content: Text(message), backgroundColor: Theme.of(context).errorColor,));
-
-    }catch (err) {
+      Scaffold.of(ctx).showSnackBar(SnackBar(
+        content: Text(message),
+        backgroundColor: Theme.of(ctx).errorColor,
+      ));
+    } catch (err) {
       print(err);
     }
   }
