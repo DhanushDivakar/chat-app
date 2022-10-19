@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
         backgroundColor: Colors.indigo,
-        accentColor: Colors.purple,
+        accentColor: Colors.deepPurpleAccent,
         accentColorBrightness: Brightness.dark,
         //this will let knw flutter tht this is bright color
         buttonTheme: ButtonTheme.of(context).copyWith(
