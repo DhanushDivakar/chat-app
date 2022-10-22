@@ -1,3 +1,4 @@
+import 'package:chat_app/widgets/picker/user_image_picker.dart';
 import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
@@ -57,7 +58,8 @@ class _AuthFormState extends State<AuthForm> {
                 mainAxisSize: MainAxisSize.min,
                 //this takes only space how much it needed
                 children: <Widget>[
-                  CircleAvatar(radius: 45,),
+                  UserImagePicker(),
+
                   TextFormField(
                     key: ValueKey('email'),
                     validator: (value) {
