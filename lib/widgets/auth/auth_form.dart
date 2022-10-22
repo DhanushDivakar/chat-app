@@ -58,8 +58,7 @@ class _AuthFormState extends State<AuthForm> {
                 mainAxisSize: MainAxisSize.min,
                 //this takes only space how much it needed
                 children: <Widget>[
-                  UserImagePicker(),
-
+                  if (!_isLogin) UserImagePicker(),
                   TextFormField(
                     key: ValueKey('email'),
                     validator: (value) {
