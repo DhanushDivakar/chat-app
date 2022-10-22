@@ -57,6 +57,7 @@ class _AuthFormState extends State<AuthForm> {
                 mainAxisSize: MainAxisSize.min,
                 //this takes only space how much it needed
                 children: <Widget>[
+                  CircleAvatar(radius: 45,),
                   TextFormField(
                     key: ValueKey('email'),
                     validator: (value) {
