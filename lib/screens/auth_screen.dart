@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -19,6 +22,7 @@ class _AuthScreenState extends State<AuthScreen> {
     String email,
     String username,
     String password,
+    File image,
     bool isLogin,
     BuildContext ctx,
   ) async {
@@ -37,6 +41,8 @@ class _AuthScreenState extends State<AuthScreen> {
           email: email,
           password: password,
         );
+       final ref =  FirebaseStorage.instance.ref().child('user_image').child(authResult.user.uid + '.jpg' );//ref will point to root bucket//child will alow us to set up the new path and that allows us to control where we want to store our file or from where we wan to read the file
+        await ref.putFile(image).onComplete;//oncomple gives a future which we can await
         await Firestore.instance
             .collection('users')
             .document(authResult.user.uid)
