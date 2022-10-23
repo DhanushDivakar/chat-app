@@ -1,6 +1,7 @@
 import 'package:chat_app/widgets/picker/user_image_picker.dart';
 import 'package:flutter/material.dart';
-//hiii
+import 'dart:io';
+
 class AuthForm extends StatefulWidget {
   AuthForm(
     this.submitFn,
@@ -27,11 +28,27 @@ class _AuthFormState extends State<AuthForm> {
   var _userEmail = '';
   var _userName = '';
   var _userPassword = '';
+  File _userImageFile;
+
+  void _pickedImage(File image) {
+    _userImageFile = image;
+  }
 
   void _trySumbit() {
     final isValid = _formKey.currentState.validate();
     FocusScope.of(context)
         .unfocus(); // this will close the keyboard when user submits the form
+    if (_userImageFile == null && !_isLogin) {
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please pick an image'),
+          backgroundColor: Theme.of(context).errorColor,
+        ),
+      );
+
+      return;
+    }
+
     if (isValid) {
       _formKey.currentState.save();
       widget.submitFn(
@@ -58,7 +75,7 @@ class _AuthFormState extends State<AuthForm> {
                 mainAxisSize: MainAxisSize.min,
                 //this takes only space how much it needed
                 children: <Widget>[
-                  if (!_isLogin) UserImagePicker(),
+                  if (!_isLogin) UserImagePicker(_pickedImage),
                   TextFormField(
                     key: ValueKey('email'),
                     validator: (value) {
