@@ -15,7 +15,7 @@ class Messages extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         }
-        //hiiii
+
         return StreamBuilder(
             stream: Firestore.instance
                 .collection('chat')
